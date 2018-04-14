@@ -78,14 +78,6 @@ public class ArrayStorage {
      * @return size array, contains only Resumes in storage (without null)
      */
     int size() {
-
-        if (size == 0) {
-
-            for (int i = 0; i < STORAGE_LENGTH; i++) {
-                if (storage[i] != null) size++;
-            }
-        }
-
         return size;
     }
 }
