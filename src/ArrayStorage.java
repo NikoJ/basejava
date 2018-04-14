@@ -14,9 +14,9 @@ public class ArrayStorage {
      * Equate all values of Resume to null
      */
     void clear() {
-        for (int i = 0; i < STORAGE_LENGTH; i++) {
-            storage[i] = null;
-        }
+
+        Arrays.fill(storage, null);
+
         size = 0;
     }
 
@@ -60,7 +60,6 @@ public class ArrayStorage {
                     storage[i] = storage[i + 1];
                     i++;
                 }
-
             }
         }
         size--;
