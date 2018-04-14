@@ -6,7 +6,7 @@ import java.util.Arrays;
 
 public class ArrayStorage {
 
-    private int size=0;
+    private int size = 0;
     Resume[] storage = new Resume[10000];
     private final int STORAGE_LENGTH = storage.length;
 
@@ -17,7 +17,7 @@ public class ArrayStorage {
         for (int i = 0; i < STORAGE_LENGTH; i++) {
             storage[i] = null;
         }
-        size=0;
+        size = 0;
     }
 
     /**
