@@ -37,7 +37,7 @@ public class ArrayStorage {
     /**
      *
      * @param uuid - Unique identifier in Resume
-     * @return
+     * @return Resume or null
      */
     Resume get(String uuid) {
 
