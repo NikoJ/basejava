@@ -1,50 +1,47 @@
-import java.util.ArrayList;
-import java.util.List;
+import java.util.Arrays;
 
 /**
  * Array based storage for Resumes
  */
 
 public class ArrayStorage {
+
+    private int sizeGlobal;
     Resume[] storage = new Resume[10000];
+    private final int STORAGE_LENGTH = storage.length;
 
     /**
      * Equate all values of Resume to null
      */
     void clear() {
-        for (int i =0; i< storage.length;i++ )
-        {
-            storage[i]=null;
+        for (int i = 0; i < STORAGE_LENGTH; i++) {
+            storage[i] = null;
         }
+        size();
     }
 
     /**
-     *
      * @param r - object Resume to be saved
      */
     void save(Resume r) {
 
-        for (int i =0; i< storage.length;i++ )
-        {
-            if (storage[i] == null)
-            {
-                storage[i]=r;
+        for (int i = 0; i < STORAGE_LENGTH; i++) {
+            if (storage[i] == null) {
+                storage[i] = r;
                 break;
             }
         }
+        size();
     }
 
     /**
-     *
      * @param uuid - Unique identifier in Resume
      * @return Resume or null
      */
     Resume get(String uuid) {
 
-        for (int i =0; i< size();i++ )
-        {
-            if (storage[i].uuid == uuid)
-            {
+        for (int i = 0; i < sizeGlobal; i++) {
+            if (storage[i].uuid.equals(uuid)) {
                 return storage[i];
             }
         }
@@ -53,23 +50,20 @@ public class ArrayStorage {
     }
 
     /**
-     *
      * @param uuid - Unique identifier in Resume
      */
     void delete(String uuid) {
 
-        for (int i =0; i< size();i++ )
-        {
-            if (storage[i].uuid == uuid)
-            {
-                storage[i]=null;
-                while (i<size()){
-                    storage[i]=storage[i+1];
+        for (int i = 0; i < sizeGlobal; i++) {
+            if (storage[i].uuid.equals(uuid)) {
+                while (i < size()) {
+                    storage[i] = storage[i + 1];
                     i++;
                 }
 
             }
         }
+        size();
     }
 
     /**
@@ -77,32 +71,20 @@ public class ArrayStorage {
      */
     Resume[] getAll() {
 
-        List<Resume> list = new ArrayList<>();
-        for (int i =0; i<size();i++ )
-        {
-            list.add(storage[i]);
-        }
-
-        Resume[] temp = new Resume[list.size()];
-
-        list.toArray(temp);
-
-        return temp;
+        return Arrays.copyOf(storage, sizeGlobal);
     }
 
     /**
-     *
      * @return size array, contains only Resumes in storage (without null)
      */
     int size() {
 
-        int size=0;
+        sizeGlobal = 0;
 
-        for (int i =0; i< storage.length;i++ )
-        {
-            if (storage[i] != null) size++;
+        for (int i = 0; i < STORAGE_LENGTH; i++) {
+            if (storage[i] != null) sizeGlobal++;
         }
 
-        return size;
+        return sizeGlobal;
     }
 }
