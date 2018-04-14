@@ -80,7 +80,6 @@ public class ArrayStorage {
     int size() {
 
         if (size == 0) {
-            size = 0;
 
             for (int i = 0; i < STORAGE_LENGTH; i++) {
                 if (storage[i] != null) size++;
