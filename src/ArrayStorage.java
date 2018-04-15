@@ -8,6 +8,7 @@ public class ArrayStorage {
 
     private int size = 0;
     private final static int STORAGE_LENGTH = 10000;
+
     Resume[] storage = new Resume[STORAGE_LENGTH];
 
     /**
