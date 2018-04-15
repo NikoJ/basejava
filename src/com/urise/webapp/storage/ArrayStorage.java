@@ -1,4 +1,7 @@
+package com.urise.webapp.storage;
+
 import java.util.Arrays;
+import com.urise.webapp.model.Resume;
 
 /**
  * Array based storage for Resumes
@@ -9,12 +12,12 @@ public class ArrayStorage {
     private int size = 0;
     private final static int STORAGE_LENGTH = 10000;
 
-    Resume[] storage = new Resume[STORAGE_LENGTH];
+    private Resume[] storage = new Resume[STORAGE_LENGTH];
 
     /**
-     * Equate all values of Resume to null
+     * Equate all values of com.urise.webapp.model.Resume to null
      */
-    void clear() {
+    public void clear() {
 
         Arrays.fill(storage, null);
 
@@ -22,9 +25,9 @@ public class ArrayStorage {
     }
 
     /**
-     * @param r - object Resume to be saved
+     * @param r - object com.urise.webapp.model.Resume to be saved
      */
-    void save(Resume r) {
+    public void save(Resume r) {
 
         for (int i = 0; i < STORAGE_LENGTH; i++) {
             if (storage[i] == null) {
@@ -36,13 +39,13 @@ public class ArrayStorage {
     }
 
     /**
-     * @param uuid - Unique identifier in Resume
-     * @return Resume or null
+     * @param uuid - Unique identifier in com.urise.webapp.model.Resume
+     * @return com.urise.webapp.model.Resume or null
      */
-    Resume get(String uuid) {
+    public Resume get(String uuid) {
 
         for (int i = 0; i < size; i++) {
-            if (storage[i].uuid.equals(uuid)) {
+            if (storage[i].getUuid().equals(uuid)) {
                 return storage[i];
             }
         }
@@ -51,12 +54,12 @@ public class ArrayStorage {
     }
 
     /**
-     * @param uuid - Unique identifier in Resume
+     * @param uuid - Unique identifier in com.urise.webapp.model.Resume
      */
-    void delete(String uuid) {
+    public void delete(String uuid) {
 
         for (int i = 0; i < size; i++) {
-            if (storage[i].uuid.equals(uuid)) {
+            if (storage[i].getUuid().equals(uuid)) {
                 System.arraycopy(storage, i + 1, storage, i, STORAGE_LENGTH - i - 1);
                 break;
             }
@@ -67,7 +70,7 @@ public class ArrayStorage {
     /**
      * @return array, contains only Resumes in storage (without null)
      */
-    Resume[] getAll() {
+    public Resume[] getAll() {
 
         return Arrays.copyOf(storage, size);
     }
@@ -75,7 +78,7 @@ public class ArrayStorage {
     /**
      * @return size array, contains only Resumes in storage (without null)
      */
-    int size() {
+    public int size() {
         return size;
     }
 }
