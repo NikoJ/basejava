@@ -7,8 +7,8 @@ import java.util.Arrays;
 public class ArrayStorage {
 
     private int size = 0;
-    Resume[] storage = new Resume[10000];
-    private final int STORAGE_LENGTH = storage.length;
+    private final static int STORAGE_LENGTH = 10000;
+    Resume[] storage = new Resume[STORAGE_LENGTH];
 
     /**
      * Equate all values of Resume to null
