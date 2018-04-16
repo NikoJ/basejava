@@ -61,6 +61,8 @@ public class ArrayStorage {
         int position = getPosition(uuid);
         if (position != -1) {
             return storage[position];
+        } else {
+            System.out.println("Resume with uuid=" + uuid + " does not exist");
         }
         return null;
     }
@@ -71,9 +73,9 @@ public class ArrayStorage {
     public void delete(String uuid) {
         int position = getPosition(uuid);
         if (position != -1) {
-            storage[position] = storage[size - 1];
-            storage[size - 1] = null;
             size--;
+            storage[position] = storage[size];
+            storage[size] = null;
         } else {
             System.out.println("Resume with uuid=" + uuid + " does not exist");
         }
