@@ -23,6 +23,8 @@ public class MainTestArrayStorage {
 
         System.out.println("Get dummy: " + ARRAY_STORAGE.get("dummy"));
 
+        ARRAY_STORAGE.update(r3); // проверка метода update()
+
         printAll();
         ARRAY_STORAGE.delete(r1.getUuid());
         printAll();
