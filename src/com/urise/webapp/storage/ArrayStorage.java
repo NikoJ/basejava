@@ -18,19 +18,19 @@ public class ArrayStorage {
      * Equate all values of Resume to null
      */
     public void clear() {
-        Arrays.fill(storage, null);
+        Arrays.fill(storage, 0, size, null);
         size = 0;
     }
 
     /**
-     * @param r - Resume to be saved
+     * @param resume - Resume to be saved
      */
-    public void save(Resume r) {
-        String uuid = r.getUuid();
+    public void save(Resume resume) {
+        String uuid = resume.getUuid();
         int position = getPosition(uuid);
         if (size < STORAGE_LENGTH) {
             if (position == -1) {
-                storage[size] = r;
+                storage[size] = resume;
                 size++;
             } else {
                 System.out.println("Resume with uuid=" + uuid + " already exists");
@@ -47,7 +47,7 @@ public class ArrayStorage {
         String uuid = resume.getUuid();
         int position = getPosition(uuid);
         if (position != -1) {
-            System.out.println("Update: " + uuid);
+            storage[position] = resume;
         } else {
             System.out.println("Resume with uuid=" + uuid + " does not exist");
         }
@@ -61,8 +61,6 @@ public class ArrayStorage {
         int position = getPosition(uuid);
         if (position != -1) {
             return storage[position];
-        } else {
-            System.out.println("Resume with uuid=" + uuid + " does not exist");
         }
         return null;
     }
@@ -73,7 +71,8 @@ public class ArrayStorage {
     public void delete(String uuid) {
         int position = getPosition(uuid);
         if (position != -1) {
-            System.arraycopy(storage, position + 1, storage, position, STORAGE_LENGTH - position - 1);
+            storage[position] = storage[size - 1];
+            storage[size - 1] = null;
             size--;
         } else {
             System.out.println("Resume with uuid=" + uuid + " does not exist");
