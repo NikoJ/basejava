@@ -33,7 +33,7 @@ public class ArrayStorage {
                 storage[size] = r;
                 size++;
             } else {
-                System.out.println("Resume with " + uuid + " already exists");
+                System.out.println("Resume with uuid=" + uuid + " already exists");
             }
         } else {
             System.out.println("Resume not saved, storage is full");
@@ -49,7 +49,7 @@ public class ArrayStorage {
         if (position != -1) {
             System.out.println("Update: " + uuid);
         } else {
-            System.out.println("Resume with " + uuid + " does not exist");
+            System.out.println("Resume with uuid=" + uuid + " does not exist");
         }
     }
 
@@ -62,7 +62,7 @@ public class ArrayStorage {
         if (position != -1) {
             return storage[position];
         } else {
-            System.out.println("Resume with " + uuid + " does not exist");
+            System.out.println("Resume with uuid=" + uuid + " does not exist");
         }
         return null;
     }
@@ -76,7 +76,7 @@ public class ArrayStorage {
             System.arraycopy(storage, position + 1, storage, position, STORAGE_LENGTH - position - 1);
             size--;
         } else {
-            System.out.println("Resume with " + uuid + " does not exist");
+            System.out.println("Resume with uuid=" + uuid + " does not exist");
         }
     }
 
