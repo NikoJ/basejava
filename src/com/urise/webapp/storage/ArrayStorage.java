@@ -26,12 +26,17 @@ public class ArrayStorage {
      * @param r - Resume to be saved
      */
     public void save(Resume r) {
-        for (int i = 0; i < STORAGE_LENGTH; i++) {
-            if (storage[i] == null && !checkResume(r)) {
-                storage[i] = r;
+        String uuid = r.getUuid();
+        int position = getPosition(uuid);
+        if (size < STORAGE_LENGTH) {
+            if (position < 0) {
+                storage[size] = r;
                 size++;
-                break;
+            } else {
+                System.out.println("Resume with "+uuid+" already exists");
             }
+        } else {
+            System.out.println("Resume not saved, storage is full");
         }
     }
 
@@ -39,11 +44,12 @@ public class ArrayStorage {
      * @param resume - Resume to be updated
      */
     public void update(Resume resume) {
-        for (int i = 0; i < STORAGE_LENGTH; i++) {
-            if (checkResume(resume)) {
-                System.out.println("Update: " + resume.getUuid());
-                break;
-            }
+        String uuid = resume.getUuid();
+        int position = getPosition(uuid);
+        if (position >= 0) {
+            System.out.println("Update: " + uuid);
+        } else {
+            System.out.println("Resume with " +uuid+ " does not exist");
         }
     }
 
@@ -52,10 +58,11 @@ public class ArrayStorage {
      * @return Resume or null
      */
     public Resume get(String uuid) {
-        for (int i = 0; i < size; i++) {
-            if (checkUuid(uuid)) {
-                return storage[i];
-            }
+        int position = getPosition(uuid);
+        if (position >= 0) {
+            return storage[position];
+        } else {
+            System.out.println("Resume with " +uuid+ " does not exist");
         }
         return null;
     }
@@ -64,12 +71,12 @@ public class ArrayStorage {
      * @param uuid - Unique identifier
      */
     public void delete(String uuid) {
-        for (int i = 0; i < size; i++) {
-            if (checkUuid(uuid)) {
-                System.arraycopy(storage, i + 1, storage, i, STORAGE_LENGTH - i - 1);
-                size--;
-                break;
-            }
+        int position = getPosition(uuid);
+        if (position >= 0) {
+            System.arraycopy(storage, position + 1, storage, position, STORAGE_LENGTH - position - 1);
+            size--;
+        } else {
+            System.out.println("Resume with " +uuid+ " does not exist");
         }
     }
 
@@ -88,30 +95,17 @@ public class ArrayStorage {
     }
 
     /**
-     * if there is a match on the Resume then returns true otherwise false
-     * @param resume
-     * @return true or false
-     */
-    private boolean checkResume(Resume resume) {
-        for (int i = 0; i < size; i++) {
-            if (storage[i].getUuid().equals(resume.getUuid())) {
-                return true;
-            }
-        }
-        return false;
-    }
-
-    /**
-     * if there is a match on the uuid it returns true otherwise false
+     * if there is a match on the uuid it returns position otherwise -1
+     *
      * @param uuid
-     * @return true or false
+     * @return position or -1
      */
-    private boolean checkUuid(String uuid) {
+    private int getPosition(String uuid) {
         for (int i = 0; i < size; i++) {
-            if (storage[i].getUuid().equals(uuid)) {
-                return true;
+            if (uuid.equals(storage[i].getUuid())) {
+                return i;
             }
         }
-        return false;
+        return -1;
     }
 }
