@@ -8,7 +8,7 @@ import com.urise.webapp.model.Resume;
  * Array based storage for Resumes
  */
 
-public class ArrayStorage {
+public class ArrayStorage implements Storage{
 
     private int size = 0;
     private final static int STORAGE_LENGTH = 10000;
