@@ -2,8 +2,6 @@ package com.urise.webapp.storage;
 
 import com.urise.webapp.model.Resume;
 
-import java.util.Arrays;
-
 public interface Storage {
     /**
      * Equate all values of Resume to null
@@ -34,7 +32,7 @@ public interface Storage {
     /**
      * @return array, contains only Resumes in storage (without null)
      */
-    public Resume[] getAll() ;
+    public Resume[] getAll();
 
     /**
      * @return size array, contains only Resumes in storage (without null)
