@@ -27,6 +27,7 @@ public abstract class AbstractArrayStorage implements Storage {
             if (position == -1) {
                 storage[size] = resume;
                 size++;
+                Arrays.sort(storage, 0, size);
             } else {
                 System.out.println("Resume with uuid=" + uuid + " already exists");
             }
@@ -43,6 +44,7 @@ public abstract class AbstractArrayStorage implements Storage {
         int position = getPosition(uuid);
         if (position != -1) {
             storage[position] = resume;
+            Arrays.sort(storage, 0, size);
         } else {
             System.out.println("Resume with uuid=" + uuid + " does not exist");
         }
@@ -57,6 +59,7 @@ public abstract class AbstractArrayStorage implements Storage {
             size--;
             storage[position] = storage[size];
             storage[size] = null;
+            Arrays.sort(storage, 0, size);
         } else {
             System.out.println("Resume with uuid=" + uuid + " does not exist");
         }
