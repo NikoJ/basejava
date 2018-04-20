@@ -6,9 +6,8 @@ import com.urise.webapp.storage.*;
 import java.util.Arrays;
 
 public class MainTestArrayStorage {
-    private static final SortedArrayStorage ARRAY_STORAGE = new SortedArrayStorage();
+    private static final Storage ARRAY_STORAGE = new SortedArrayStorage();
 
-    //private static final Storage ARRAY_STORAGE2 = new ArrayStorage();
     public static void main(String[] args) {
         Resume r1 = new Resume();
         r1.setUuid("1");
@@ -30,7 +29,6 @@ public class MainTestArrayStorage {
 
         ARRAY_STORAGE.update(r3); // проверка метода update()
         ARRAY_STORAGE.save(r4); // проверка на совпадение по uuid
-        System.out.println("Index: " + Arrays.binarySearch(ARRAY_STORAGE.storage, 0, ARRAY_STORAGE.size(), r1));
 
         printAll();
         ARRAY_STORAGE.delete(r1.getUuid());
