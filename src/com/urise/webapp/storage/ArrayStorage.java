@@ -11,14 +11,6 @@ import com.urise.webapp.model.Resume;
 public class ArrayStorage extends AbstractArrayStorage {
 
     /**
-     * Equate all values of Resume to null
-     */
-    public void clear() {
-        Arrays.fill(storage, 0, size, null);
-        size = 0;
-    }
-
-    /**
      * @param resume - Resume to be saved
      */
     public void save(Resume resume) {
@@ -61,13 +53,6 @@ public class ArrayStorage extends AbstractArrayStorage {
         } else {
             System.out.println("Resume with uuid=" + uuid + " does not exist");
         }
-    }
-
-    /**
-     * @return array, contains only Resumes in storage (without null)
-     */
-    public Resume[] getAll() {
-        return Arrays.copyOf(storage, size);
     }
 
     /**
