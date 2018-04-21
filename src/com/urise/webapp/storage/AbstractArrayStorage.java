@@ -24,10 +24,9 @@ public abstract class AbstractArrayStorage implements Storage {
         String uuid = resume.getUuid();
         int position = getPosition(uuid);
         if (size < STORAGE_LIMIT) {
-            if (position == -1) {
-                storage[size] = resume;
+            if (position < 0) {
+                selectSavePosition(resume, position);
                 size++;
-                Arrays.sort(storage, 0, size);
             } else {
                 System.out.println("Resume with uuid=" + uuid + " already exists");
             }
@@ -42,9 +41,8 @@ public abstract class AbstractArrayStorage implements Storage {
     public void update(Resume resume) {
         String uuid = resume.getUuid();
         int position = getPosition(uuid);
-        if (position != -1) {
+        if (position >= 0) {
             storage[position] = resume;
-            Arrays.sort(storage, 0, size);
         } else {
             System.out.println("Resume with uuid=" + uuid + " does not exist");
         }
@@ -55,11 +53,8 @@ public abstract class AbstractArrayStorage implements Storage {
      */
     public void delete(String uuid) {
         int position = getPosition(uuid);
-        if (position != -1) {
-            size--;
-            storage[position] = storage[size];
-            storage[size] = null;
-            Arrays.sort(storage, 0, size);
+        if (position >= 0) {
+            selectDeletePosition(position);
         } else {
             System.out.println("Resume with uuid=" + uuid + " does not exist");
         }
@@ -78,7 +73,7 @@ public abstract class AbstractArrayStorage implements Storage {
      */
     public Resume get(String uuid) {
         int position = getPosition(uuid);
-        if (position != -1) {
+        if (position >= 0) {
             return storage[position];
         } else {
             System.out.println("Resume with uuid=" + uuid + " does not exist");
@@ -100,4 +95,8 @@ public abstract class AbstractArrayStorage implements Storage {
      * @return position or -1
      */
     protected abstract int getPosition(String uuid);
+
+    protected abstract void selectDeletePosition(int position);
+
+    protected abstract void selectSavePosition(Resume resume, int position);
 }
