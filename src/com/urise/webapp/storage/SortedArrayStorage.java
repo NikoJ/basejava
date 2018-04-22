@@ -14,15 +14,13 @@ public class SortedArrayStorage extends AbstractArrayStorage {
     }
 
     @Override
-    protected void selectDeletePosition(int position) {
+    protected void executeDeletePosition(int position) {
         int selectPosition = position + 1;
-        System.arraycopy(storage, selectPosition, storage, position, STORAGE_LIMIT - selectPosition);
-        size--;
+        System.arraycopy(storage, selectPosition, storage, position, STORAGE_LIMIT - selectPosition-1);
     }
 
     @Override
-    protected void selectSavePosition(Resume resume, int position) {
-        System.out.println("Позиция бин поиска: " + Integer.toString(position));
+    protected void executeSavePosition(Resume resume, int position) {
         int selectPosition = -position - 1;
         System.arraycopy(storage, selectPosition, storage, selectPosition + 1, size - selectPosition);
         storage[selectPosition] = resume;

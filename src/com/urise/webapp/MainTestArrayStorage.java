@@ -29,7 +29,7 @@ public class MainTestArrayStorage {
         ARRAY_STORAGE.save(r4); // проверка на совпадение по uuid
 
         printAll();
-        ARRAY_STORAGE.delete(r1.getUuid());
+        ARRAY_STORAGE.delete(r3.getUuid());
         printAll();
         ARRAY_STORAGE.clear();
         printAll();

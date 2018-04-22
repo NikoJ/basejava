@@ -25,7 +25,7 @@ public abstract class AbstractArrayStorage implements Storage {
         int position = getPosition(uuid);
         if (size < STORAGE_LIMIT) {
             if (position < 0) {
-                selectSavePosition(resume, position);
+                executeSavePosition(resume, position);
                 size++;
             } else {
                 System.out.println("Resume with uuid=" + uuid + " already exists");
@@ -54,7 +54,9 @@ public abstract class AbstractArrayStorage implements Storage {
     public void delete(String uuid) {
         int position = getPosition(uuid);
         if (position >= 0) {
-            selectDeletePosition(position);
+            executeDeletePosition(position);
+            storage[size] = null;
+            size--;
         } else {
             System.out.println("Resume with uuid=" + uuid + " does not exist");
         }
@@ -96,7 +98,7 @@ public abstract class AbstractArrayStorage implements Storage {
      */
     protected abstract int getPosition(String uuid);
 
-    protected abstract void selectDeletePosition(int position);
+    protected abstract void executeDeletePosition(int position);
 
-    protected abstract void selectSavePosition(Resume resume, int position);
+    protected abstract void executeSavePosition(Resume resume, int position);
 }
