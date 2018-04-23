@@ -16,7 +16,7 @@ public class SortedArrayStorage extends AbstractArrayStorage {
     @Override
     protected void executeDeletePosition(int position) {
         int selectPosition = position + 1;
-        System.arraycopy(storage, selectPosition, storage, position, STORAGE_LIMIT - selectPosition-1);
+        System.arraycopy(storage, selectPosition, storage, position, STORAGE_LIMIT - selectPosition);
     }
 
     @Override
