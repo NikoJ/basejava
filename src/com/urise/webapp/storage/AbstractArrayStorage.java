@@ -1,5 +1,8 @@
 package com.urise.webapp.storage;
 
+import com.urise.webapp.exception.ExistStorageException;
+import com.urise.webapp.exception.NotExistStorageException;
+import com.urise.webapp.exception.StorageException;
 import com.urise.webapp.model.Resume;
 
 import java.util.Arrays;
@@ -8,6 +11,12 @@ public abstract class AbstractArrayStorage implements Storage {
     protected static final int STORAGE_LIMIT = 10000;
     protected Resume[] storage = new Resume[STORAGE_LIMIT];
     protected int size = 0;
+
+    protected abstract int getPosition(String uuid);
+
+    protected abstract void executeDelete(int position);
+
+    protected abstract void executeSave(Resume resume, int position);
 
     /**
      * Equate all values of Resume to null
@@ -25,13 +34,13 @@ public abstract class AbstractArrayStorage implements Storage {
         int position = getPosition(uuid);
         if (size < STORAGE_LIMIT) {
             if (position < 0) {
-                executeSavePosition(resume, position);
+                executeSave(resume, position);
                 size++;
             } else {
-                System.out.println("Resume with uuid=" + uuid + " already exists");
+                throw new ExistStorageException(uuid);
             }
         } else {
-            System.out.println("Storage overflow");
+            throw new StorageException("Storage overflow", uuid);
         }
     }
 
@@ -44,7 +53,7 @@ public abstract class AbstractArrayStorage implements Storage {
         if (position >= 0) {
             storage[position] = resume;
         } else {
-            System.out.println("Resume with uuid=" + uuid + " does not exist");
+            throw new NotExistStorageException(uuid);
         }
     }
 
@@ -54,11 +63,11 @@ public abstract class AbstractArrayStorage implements Storage {
     public void delete(String uuid) {
         int position = getPosition(uuid);
         if (position >= 0) {
-            executeDeletePosition(position);
-            storage[size] = null;
-            size--;
+            executeDelete(position);
+            storage[size--] = null;
+            // size--;
         } else {
-            System.out.println("Resume with uuid=" + uuid + " does not exist");
+            throw new NotExistStorageException(uuid);
         }
     }
 
@@ -78,9 +87,8 @@ public abstract class AbstractArrayStorage implements Storage {
         if (position >= 0) {
             return storage[position];
         } else {
-            System.out.println("Resume with uuid=" + uuid + " does not exist");
+            throw new NotExistStorageException(uuid);
         }
-        return null;
     }
 
     /**
@@ -96,9 +104,4 @@ public abstract class AbstractArrayStorage implements Storage {
      * @param uuid
      * @return position or -1
      */
-    protected abstract int getPosition(String uuid);
-
-    protected abstract void executeDeletePosition(int position);
-
-    protected abstract void executeSavePosition(Resume resume, int position);
 }
