@@ -10,12 +10,7 @@ public class MapStorage extends AbstractStorage {
 
     @Override
     protected boolean isExist(Object position) {
-        for (Map.Entry<String, Resume> item : map.entrySet()) {
-            if (position.equals(item.getKey())) {
-                return true;
-            }
-        }
-        return false;
+        return map.containsKey(position);
     }
 
     @Override
