@@ -10,7 +10,7 @@ public abstract class AbstractArrayStorage extends AbstractStorage {
     protected Resume[] storage = new Resume[STORAGE_LIMIT];
     protected int size = 0;
 
-    protected abstract Integer getPosition(String uuid); //return int
+    protected abstract Integer getPosition(String uuid);
 
     protected abstract void executeDelete(int position);
 
@@ -18,7 +18,7 @@ public abstract class AbstractArrayStorage extends AbstractStorage {
 
     @Override
     protected boolean isExist(Object position) {
-        return (Integer) position >= 0 ? true : false;
+        return (Integer) position >= 0;
     }
 
     @Override

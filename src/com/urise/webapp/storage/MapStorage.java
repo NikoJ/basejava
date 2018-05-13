@@ -10,7 +10,12 @@ public class MapStorage extends AbstractStorage {
 
     @Override
     protected boolean isExist(Object position) {
-        return position != null;
+        for (Map.Entry<String, Resume> item : map.entrySet()) {
+            if (position.equals(item.getKey())) {
+                return true;
+            }
+        }
+        return false;
     }
 
     @Override
@@ -35,12 +40,7 @@ public class MapStorage extends AbstractStorage {
 
     @Override
     protected String getPosition(String uuid) {
-        for (Map.Entry<String, Resume> item : map.entrySet()) {
-            if (uuid.equals(item.getValue().getUuid())) {
-                return item.getKey();
-            }
-        }
-        return null;
+        return uuid;
     }
 
     @Override

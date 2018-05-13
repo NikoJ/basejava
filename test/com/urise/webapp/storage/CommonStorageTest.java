@@ -1,10 +1,13 @@
 package com.urise.webapp.storage;
 
-import org.junit.runner.JUnitCore;
-import org.junit.runner.Result;
+import org.junit.runner.RunWith;
+import org.junit.runners.Suite;
 
+
+@Suite.SuiteClasses({ListStorageTest.class, MapStorageTest.class, ArrayStorageTest.class, SortedArrayStorageTest.class})
+@RunWith(Suite.class)
 public class CommonStorageTest {
-
+/*
     public static void main(String[] args) {
         JUnitCore runner = new JUnitCore();
         printResultTest(runner.run(ArrayStorageTest.class), "ArrayStorageTest");
@@ -19,5 +22,5 @@ public class CommonStorageTest {
         System.out.println("failed tests: " + result.getFailureCount());
         System.out.println("ignored tests: " + result.getIgnoreCount());
         System.out.println("success: " + result.wasSuccessful() + "\n");
-    }
+    }*/
 }
