@@ -7,8 +7,6 @@ import com.urise.webapp.storage.Storage;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
-import java.util.Arrays;
-import java.util.Collections;
 
 public class MainArray {
     private final static Storage ARRAY_STORAGE = new ArrayStorage();
@@ -60,7 +58,7 @@ public class MainArray {
     }
 
     private static void printAll() {
-        Resume[] all =ARRAY_STORAGE.getAllSorted().toArray(new Resume[ARRAY_STORAGE.size()]);
+        Resume[] all = ARRAY_STORAGE.getAllSorted().toArray(new Resume[ARRAY_STORAGE.size()]);
         System.out.println("----------------------------");
         if (all.length == 0) {
             System.out.println("Empty");

@@ -15,7 +15,7 @@ public abstract class AbstractArrayStorageTest extends AbstractStorageTest {
     public void getOverflow() throws Exception {
         try {
             for (int i = storage.size(); i < AbstractArrayStorage.STORAGE_LIMIT; i++) {
-                storage.save(new Resume("a"+i));
+                storage.save(new Resume("a" + i));
             }
         } catch (StorageException e) {
             Assert.fail();
