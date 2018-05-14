@@ -35,6 +35,11 @@ public class ListStorage extends AbstractStorage {
     }
 
     @Override
+    protected List<Resume> performSorted() {
+        return list;
+    }
+
+    @Override
     protected Integer getPosition(String uuid) {
         for (int i = 0; i < list.size(); i++) {
             if (uuid.equals(list.get(i).getUuid())) {
@@ -49,10 +54,6 @@ public class ListStorage extends AbstractStorage {
         list.clear();
     }
 
-    @Override
-    public Resume[] getAll() {
-        return list.toArray(new Resume[size()]);
-    }
 
     @Override
     public int size() {

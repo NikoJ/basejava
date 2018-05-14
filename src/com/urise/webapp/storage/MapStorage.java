@@ -2,36 +2,13 @@ package com.urise.webapp.storage;
 
 import com.urise.webapp.model.Resume;
 
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
-import java.util.TreeMap;
 
 public class MapStorage extends AbstractStorage {
-    private Map<String, Resume> map = new TreeMap<>();
-
-    @Override
-    protected boolean isExist(Object position) {
-        return map.containsKey(position);
-    }
-
-    @Override
-    protected void performUpdate(Resume resume, Object position) {
-        map.replace((String) position, resume);
-    }
-
-    @Override
-    protected void performSave(Resume resume, Object position) {
-        map.put(resume.getUuid(), resume);
-    }
-
-    @Override
-    protected void performDelete(Object position) {
-        map.remove(position);
-    }
-
-    @Override
-    protected Resume performGet(Object position) {
-        return map.get(position);
-    }
+    private Map<String, Resume> map = new HashMap<>();
 
     @Override
     protected String getPosition(String uuid) {
@@ -39,13 +16,38 @@ public class MapStorage extends AbstractStorage {
     }
 
     @Override
-    public void clear() {
-        map.clear();
+    protected boolean isExist(Object key) {
+        return map.containsKey(key);
     }
 
     @Override
-    public Resume[] getAll() {
-        return map.values().toArray(new Resume[size()]);
+    protected void performUpdate(Resume resume, Object key) {
+        map.replace((String) key, resume);
+    }
+
+    @Override
+    protected void performSave(Resume resume, Object key) {
+        map.put(resume.getUuid(), resume);
+    }
+
+    @Override
+    protected void performDelete(Object key) {
+        map.remove(key);
+    }
+
+    @Override
+    protected Resume performGet(Object key) {
+        return map.get(key);
+    }
+
+    @Override
+    protected List<Resume> performSorted() {
+        return new ArrayList<>(map.values());
+    }
+
+    @Override
+    public void clear() {
+        map.clear();
     }
 
     @Override
