@@ -7,48 +7,48 @@ import com.urise.webapp.model.Resume;
 import java.util.Collections;
 import java.util.List;
 
-public abstract class AbstractStorage implements Storage {
+public abstract class AbstractStorage<P> implements Storage {
 
-    protected abstract boolean isExist(Object position);
+    protected abstract boolean isExist(P position);
 
-    protected abstract void performUpdate(Resume resume, Object position);
+    protected abstract void performUpdate(Resume resume, P position);
 
-    protected abstract void performSave(Resume resume, Object position);
+    protected abstract void performSave(Resume resume, P position);
 
-    protected abstract void performDelete(Object position);
+    protected abstract void performDelete(P position);
 
-    protected abstract Resume performGet(Object position);
+    protected abstract Resume performGet(P position);
 
     protected abstract List<Resume> performSorted();
 
-    protected abstract Object getPosition(String uuid);
+    protected abstract P getPosition(String uuid);
 
     @Override
     public void update(Resume resume) {
-        Object position = getExistPosition(resume.getUuid());
+        P position = getExistPosition(resume.getUuid());
         performUpdate(resume, position);
     }
 
     @Override
     public void save(Resume resume) {
-        Object position = getNotExistPosition(resume.getUuid());
+        P position = getNotExistPosition(resume.getUuid());
         performSave(resume, position);
     }
 
     @Override
     public void delete(String uuid) {
-        Object position = getExistPosition(uuid);
+        P position = getExistPosition(uuid);
         performDelete(position);
     }
 
     @Override
     public Resume get(String uuid) {
-        Object position = getExistPosition(uuid);
+        P position = getExistPosition(uuid);
         return performGet(position);
     }
 
-    private Object getExistPosition(String uuid) {
-        Object position = getPosition(uuid);
+    private P getExistPosition(String uuid) {
+        P position = getPosition(uuid);
         if (!isExist(position)) {
             throw new NotExistStorageException(uuid);
         }
@@ -62,8 +62,8 @@ public abstract class AbstractStorage implements Storage {
         return list;
     }
 
-    private Object getNotExistPosition(String uuid) {
-        Object position = getPosition(uuid);
+    private P getNotExistPosition(String uuid) {
+        P position = getPosition(uuid);
         if (isExist(position)) {
             throw new ExistStorageException(uuid);
         }
