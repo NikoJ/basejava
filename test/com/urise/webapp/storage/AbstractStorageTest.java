@@ -12,15 +12,15 @@ import java.util.Arrays;
 import java.util.List;
 
 public abstract class AbstractStorageTest {
-    protected static final String UUID_1 = "uuid1";
-    protected static final String UUID_2 = "uuid2";
-    protected static final String UUID_3 = "uuid3";
-    protected static final String UUID_4 = "uuid4";
+    private static final String UUID_1 = "uuid1";
+    private static final String UUID_2 = "uuid2";
+    private static final String UUID_3 = "uuid3";
+    private static final String UUID_4 = "uuid4";
 
-    protected static final Resume RESUME_1;
-    protected static final Resume RESUME_2;
-    protected static final Resume RESUME_3;
-    protected static final Resume RESUME_4;
+    private static final Resume RESUME_1;
+    private static final Resume RESUME_2;
+    private static final Resume RESUME_3;
+    private static final Resume RESUME_4;
 
     static {
         RESUME_1 = new Resume(UUID_1, "A");
@@ -33,15 +33,15 @@ public abstract class AbstractStorageTest {
         RESUME_1.addSections(SectionType.ACHIEVEMENT, new ListSection("A1", "A2", "A3"));
         RESUME_2.addSections(SectionType.QUALIFICATIONS, new ListSection("Q1", "Q2", "Q3"));
         RESUME_3.addSections(SectionType.EXPERIENCE, new LearnSection(new Learn("Title", "URL",
-                new LearnList("02.01.2016", "02.01.2018", "Инженер", "Работал в лаборатории"),
-                new LearnList("02.01.2016", "02.01.2018", "Инженер", "Работал в лаборатории"))));
+                new ListLearn("02.01.2016", "02.01.2018", "Инженер", "Работал в лаборатории"),
+                new ListLearn("02.01.2016", "02.01.2018", "Инженер", "Работал в лаборатории"))));
         RESUME_1.addSections(SectionType.EDUCATION, new LearnSection(new Learn("ЛЭТИ", "URL",
-                new LearnList("02.01.2013", "02.01.2017", "Бакалавр"))));
+                new ListLearn("02.01.2013", "02.01.2017", "Бакалавр"))));
     }
 
     protected Storage storage;
 
-    public AbstractStorageTest(Storage storage) {
+    AbstractStorageTest(Storage storage) {
         this.storage = storage;
     }
 

@@ -7,25 +7,25 @@ import java.util.Objects;
 public class Learn {
 
     private final Site title;
-    private final List<LearnList> learnLists;
+    private final List<ListLearn> listLearns;
 
-    public Learn(String title, String url, List<LearnList> learnLists) {
+    public Learn(String title, String url, List<ListLearn> listLearns) {
         Objects.requireNonNull(title, "Title must not be null");
         this.title = new Site(title, url);
-        this.learnLists = learnLists;
+        this.listLearns = listLearns;
     }
 
-    public Learn(String title, String url, LearnList... learnLists) {
+    public Learn(String title, String url, ListLearn... listLearns) {
         Objects.requireNonNull(title, "Title must not be null");
         this.title = new Site(title, url);
-        this.learnLists = Arrays.asList(learnLists);
+        this.listLearns = Arrays.asList(listLearns);
     }
 
     @Override
     public String toString() {
         return "Learn{" +
                 "title=" + title +
-                ", learnLists=" + learnLists +
+                ", listLearns=" + listLearns +
                 '}';
     }
 
@@ -37,13 +37,13 @@ public class Learn {
         Learn learn = (Learn) o;
 
         if (!title.equals(learn.title)) return false;
-        return learnLists.equals(learn.learnLists);
+        return listLearns.equals(learn.listLearns);
     }
 
     @Override
     public int hashCode() {
         int result = title.hashCode();
-        result = 31 * result + learnLists.hashCode();
+        result = 31 * result + listLearns.hashCode();
         return result;
     }
 }
