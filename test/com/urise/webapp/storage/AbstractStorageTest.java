@@ -2,7 +2,7 @@ package com.urise.webapp.storage;
 
 import com.urise.webapp.exception.ExistStorageException;
 import com.urise.webapp.exception.NotExistStorageException;
-import com.urise.webapp.model.Resume;
+import com.urise.webapp.model.*;
 import org.junit.After;
 import org.junit.Assert;
 import org.junit.Before;
@@ -13,13 +13,32 @@ import java.util.List;
 
 public abstract class AbstractStorageTest {
     protected static final String UUID_1 = "uuid1";
-    protected static final Resume RESUME_1 = new Resume(UUID_1, "A");
     protected static final String UUID_2 = "uuid2";
-    protected static final Resume RESUME_2 = new Resume(UUID_2, "C");
     protected static final String UUID_3 = "uuid3";
-    protected static final Resume RESUME_3 = new Resume(UUID_3, "B");
     protected static final String UUID_4 = "uuid4";
-    protected static final Resume RESUME_4 = new Resume(UUID_4, "D");
+
+    protected static final Resume RESUME_1;
+    protected static final Resume RESUME_2;
+    protected static final Resume RESUME_3;
+    protected static final Resume RESUME_4;
+
+    static {
+        RESUME_1 = new Resume(UUID_1, "A");
+        RESUME_2 = new Resume(UUID_2, "C");
+        RESUME_3 = new Resume(UUID_3, "B");
+        RESUME_4 = new Resume(UUID_4, "D");
+        RESUME_1.addContacts(ContactType.PHONE, "+999999999");
+        RESUME_2.addSections(SectionType.OBJECTIVE, new TextBoxSection("OBJECTIVE"));
+        RESUME_3.addSections(SectionType.PERSONAL, new TextBoxSection("PERSONAL"));
+        RESUME_1.addSections(SectionType.ACHIEVEMENT, new ListSection("A1", "A2", "A3"));
+        RESUME_2.addSections(SectionType.QUALIFICATIONS, new ListSection("Q1", "Q2", "Q3"));
+        RESUME_3.addSections(SectionType.EXPERIENCE, new LearnSection(new Learn("Title", "URL",
+                new LearnList("02.01.2016", "02.01.2018", "Инженер", "Работал в лаборатории"),
+                new LearnList("02.01.2016", "02.01.2018", "Инженер", "Работал в лаборатории"))));
+        RESUME_1.addSections(SectionType.EDUCATION, new LearnSection(new Learn("ЛЭТИ", "URL",
+                new LearnList("02.01.2013", "02.01.2017", "Бакалавр"))));
+    }
+
     protected Storage storage;
 
     public AbstractStorageTest(Storage storage) {

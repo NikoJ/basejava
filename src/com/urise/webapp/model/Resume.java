@@ -1,21 +1,25 @@
 package com.urise.webapp.model;
 
 import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
 
+import java.util.EnumMap;
+import java.util.Map;
+import java.util.Objects;
 import java.util.UUID;
 
 public class Resume implements Comparable<Resume> {
-
-    // Unique identifier
     private final String uuid;
     private String fullName;
+    private Map<ContactType, String> contacts = new EnumMap<>(ContactType.class);
+    private Map<SectionType, Section> sections = new EnumMap<>(SectionType.class);
 
     public Resume(String fullName) {
         this(UUID.randomUUID().toString(), fullName);
     }
 
-    public Resume(String uuid, @Nullable String fullName) {
+    public Resume(String uuid, String fullName) {
+        Objects.requireNonNull(uuid, "uuid must not be null");
+        Objects.requireNonNull(fullName, "fullName must not be null");
         this.uuid = uuid;
         this.fullName = fullName;
     }
@@ -28,8 +32,20 @@ public class Resume implements Comparable<Resume> {
         return fullName;
     }
 
-    public void setFullName(String fullName) {
-        this.fullName = fullName;
+    public String getContacts(ContactType contactType) {
+        return contacts.get(contactType);
+    }
+
+    public Section getSections(SectionType sectionType) {
+        return sections.get(sectionType);
+    }
+
+    public void addContacts(ContactType contactType, String contact) {
+        contacts.put(contactType, contact);
+    }
+
+    public void addSections(SectionType sectionType, Section section) {
+        sections.put(sectionType, section);
     }
 
     @Override
