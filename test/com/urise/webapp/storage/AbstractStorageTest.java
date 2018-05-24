@@ -32,11 +32,11 @@ public abstract class AbstractStorageTest {
         RESUME_3.addSections(SectionType.PERSONAL, new TextBoxSection("PERSONAL"));
         RESUME_1.addSections(SectionType.ACHIEVEMENT, new ListSection("A1", "A2", "A3"));
         RESUME_2.addSections(SectionType.QUALIFICATIONS, new ListSection("Q1", "Q2", "Q3"));
-        RESUME_3.addSections(SectionType.EXPERIENCE, new LearnSection(new Learn("Title", "URL",
-                new ListLearn("02.01.2016", "02.01.2018", "Инженер", "Работал в лаборатории"),
-                new ListLearn("02.01.2016", "02.01.2018", "Инженер", "Работал в лаборатории"))));
-        RESUME_1.addSections(SectionType.EDUCATION, new LearnSection(new Learn("ЛЭТИ", "URL",
-                new ListLearn("02.01.2013", "02.01.2017", "Бакалавр"))));
+        RESUME_3.addSections(SectionType.EXPERIENCE, new CompanySection(new Company("Title", "URL",
+                new Role("02.01.2016", "02.01.2018", "Инженер", "Работал в лаборатории"),
+                new Role("02.01.2016", "02.01.2018", "Инженер", "Работал в лаборатории"))));
+        RESUME_1.addSections(SectionType.EDUCATION, new CompanySection(new Company("ЛЭТИ", "URL",
+                new Role("02.01.2013", "02.01.2017", "Бакалавр"))));
     }
 
     protected Storage storage;

@@ -4,28 +4,28 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Objects;
 
-public class Learn {
+public class Company {
 
     private final Site title;
-    private final List<ListLearn> listLearns;
+    private final List<Role> roles;
 
-    public Learn(String title, String url, List<ListLearn> listLearns) {
+    public Company(String title, String url, List<Role> roles) {
         Objects.requireNonNull(title, "Title must not be null");
         this.title = new Site(title, url);
-        this.listLearns = listLearns;
+        this.roles = roles;
     }
 
-    public Learn(String title, String url, ListLearn... listLearns) {
+    public Company(String title, String url, Role... roles) {
         Objects.requireNonNull(title, "Title must not be null");
         this.title = new Site(title, url);
-        this.listLearns = Arrays.asList(listLearns);
+        this.roles = Arrays.asList(roles);
     }
 
     @Override
     public String toString() {
-        return "Learn{" +
+        return "Company{" +
                 "title=" + title +
-                ", listLearns=" + listLearns +
+                ", roles=" + roles +
                 '}';
     }
 
@@ -34,16 +34,16 @@ public class Learn {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
 
-        Learn learn = (Learn) o;
+        Company company = (Company) o;
 
-        if (!title.equals(learn.title)) return false;
-        return listLearns.equals(learn.listLearns);
+        if (!title.equals(company.title)) return false;
+        return roles.equals(company.roles);
     }
 
     @Override
     public int hashCode() {
         int result = title.hashCode();
-        result = 31 * result + listLearns.hashCode();
+        result = 31 * result + roles.hashCode();
         return result;
     }
 }

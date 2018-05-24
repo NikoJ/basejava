@@ -5,13 +5,13 @@ import com.urise.webapp.common.DateUtil;
 import java.util.Date;
 import java.util.Objects;
 
-public class ListLearn {
+public class Role {
     private final Date dateStart;
     private final Date dateEnd;
     private final String name;
     private final String description;
 
-    public ListLearn(String dateStart, String dateEnd, String name, String description) {
+    public Role(String dateStart, String dateEnd, String name, String description) {
         Objects.requireNonNull(dateStart, "DateStart must not be null");
         Objects.requireNonNull(name, "Name must not be null");
         this.dateStart = DateUtil.valueOf(dateStart);
@@ -20,7 +20,7 @@ public class ListLearn {
         this.description = description;
     }
 
-    public ListLearn(String dateStart, String dateEnd, String name) {
+    public Role(String dateStart, String dateEnd, String name) {
         Objects.requireNonNull(dateStart, "DateStart must not be null");
         Objects.requireNonNull(name, "Name must not be null");
         this.dateStart = DateUtil.valueOf(dateStart);
@@ -59,7 +59,7 @@ public class ListLearn {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
 
-        ListLearn learnSet = (ListLearn) o;
+        Role learnSet = (Role) o;
 
         if (!dateStart.equals(learnSet.dateStart)) return false;
         if (dateEnd != null ? !dateEnd.equals(learnSet.dateEnd) : learnSet.dateEnd != null) return false;

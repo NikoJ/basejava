@@ -1,7 +1,5 @@
 package com.urise.webapp.model;
 
-import org.jetbrains.annotations.NotNull;
-
 import java.util.EnumMap;
 import java.util.Map;
 import java.util.Objects;
@@ -72,7 +70,7 @@ public class Resume implements Comparable<Resume> {
     }
 
     @Override
-    public int compareTo(@NotNull Resume resume) {
+    public int compareTo(Resume resume) {
         int temp = fullName.compareTo(resume.fullName);
         return temp != 0 ? temp : (uuid).compareTo(resume.uuid);
     }
