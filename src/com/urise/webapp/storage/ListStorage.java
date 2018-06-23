@@ -14,28 +14,28 @@ public class ListStorage extends AbstractStorage<Integer> {
     }
 
     @Override
-    protected void performUpdate(Resume resume, Integer position) {
+    protected void doUpdate(Resume resume, Integer position) {
         list.set(position, resume);
     }
 
     @Override
-    protected void performSave(Resume resume, Integer position) {
+    protected void doSave(Resume resume, Integer position) {
         list.add(resume);
     }
 
     @Override
-    protected void performDelete(Integer position) {
+    protected void doDelete(Integer position) {
         int temp = position;
         list.remove(temp);
     }
 
     @Override
-    protected Resume performGet(Integer position) {
+    protected Resume doGet(Integer position) {
         return list.get(position);
     }
 
     @Override
-    protected List<Resume> performSorted() {
+    protected List<Resume> doCopyAll() {
         return new ArrayList<>(list);
     }
 

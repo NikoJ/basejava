@@ -21,27 +21,27 @@ public class MapStorage extends AbstractStorage<String> {
     }
 
     @Override
-    protected void performUpdate(Resume resume, String key) {
+    protected void doUpdate(Resume resume, String key) {
         map.replace(key, resume);
     }
 
     @Override
-    protected void performSave(Resume resume, String key) {
+    protected void doSave(Resume resume, String key) {
         map.put(resume.getUuid(), resume);
     }
 
     @Override
-    protected void performDelete(String key) {
+    protected void doDelete(String key) {
         map.remove(key);
     }
 
     @Override
-    protected Resume performGet(String key) {
+    protected Resume doGet(String key) {
         return map.get(key);
     }
 
     @Override
-    protected List<Resume> performSorted() {
+    protected List<Resume> doCopyAll() {
         return new ArrayList<>(map.values());
     }
 

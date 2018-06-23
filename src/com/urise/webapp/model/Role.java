@@ -1,30 +1,39 @@
 package com.urise.webapp.model;
 
-import com.urise.webapp.common.DateUtil;
+import com.urise.webapp.util.DateUtil;
 
-import java.util.Date;
+import java.time.LocalDate;
+import java.time.Month;
 import java.util.Objects;
 
 public class Role {
-    private final Date dateStart;
-    private final Date dateEnd;
+    private final LocalDate dateStart;
+    private final LocalDate dateEnd;
     private final String name;
     private final String description;
 
-    public Role(String dateStart, String dateEnd, String name, String description) {
+    public Role(int yearStart, Month monthStart, int yearEnd, Month monthEnd, String name, String description) {
+        this(DateUtil.of(yearStart, monthStart), DateUtil.of(yearEnd, monthEnd), name, description);
+    }
+
+    public Role(int yearStart, Month monthStart, int yearEnd, Month monthEnd, String name) {
+        this(DateUtil.of(yearStart, monthStart), DateUtil.of(yearEnd, monthEnd), name);
+    }
+
+    public Role(LocalDate dateStart, LocalDate dateEnd, String name, String description) {
         Objects.requireNonNull(dateStart, "DateStart must not be null");
         Objects.requireNonNull(name, "Name must not be null");
-        this.dateStart = DateUtil.valueOf(dateStart);
-        this.dateEnd = DateUtil.valueOf(dateEnd);
+        this.dateStart = dateStart;
+        this.dateEnd = dateEnd;
         this.name = name;
         this.description = description;
     }
 
-    public Role(String dateStart, String dateEnd, String name) {
+    public Role(LocalDate dateStart, LocalDate dateEnd, String name) {
         Objects.requireNonNull(dateStart, "DateStart must not be null");
         Objects.requireNonNull(name, "Name must not be null");
-        this.dateStart = DateUtil.valueOf(dateStart);
-        this.dateEnd = DateUtil.valueOf(dateEnd);
+        this.dateStart = dateStart;
+        this.dateEnd = dateEnd;
         this.name = name;
         this.description = null;
     }

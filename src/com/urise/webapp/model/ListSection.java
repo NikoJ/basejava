@@ -10,8 +10,8 @@ public class ListSection extends Section {
         this.list = list;
     }
 
-    public ListSection(String... arg) {
-        this.list = Arrays.asList(arg);
+    public ListSection(String... list) {
+        this.list = Arrays.asList(list);
     }
 
     public List<String> getList() {

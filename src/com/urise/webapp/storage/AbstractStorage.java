@@ -13,15 +13,15 @@ public abstract class AbstractStorage<P> implements Storage {
 
     protected abstract boolean isExist(P position);
 
-    protected abstract void performUpdate(Resume resume, P position);
+    protected abstract void doUpdate(Resume resume, P position);
 
-    protected abstract void performSave(Resume resume, P position);
+    protected abstract void doSave(Resume resume, P position);
 
-    protected abstract void performDelete(P position);
+    protected abstract void doDelete(P position);
 
-    protected abstract Resume performGet(P position);
+    protected abstract Resume doGet(P position);
 
-    protected abstract List<Resume> performSorted();
+    protected abstract List<Resume> doCopyAll(); // get sorted storage
 
     protected abstract P getPosition(String uuid);
 
@@ -29,28 +29,28 @@ public abstract class AbstractStorage<P> implements Storage {
     public void update(Resume resume) {
         LOG.info("Update " + resume);
         P position = getExistPosition(resume.getUuid());
-        performUpdate(resume, position);
+        doUpdate(resume, position);
     }
 
     @Override
     public void save(Resume resume) {
         LOG.info("Save " + resume);
         P position = getNotExistPosition(resume.getUuid());
-        performSave(resume, position);
+        doSave(resume, position);
     }
 
     @Override
     public void delete(String uuid) {
         LOG.info("Delete " + uuid);
         P position = getExistPosition(uuid);
-        performDelete(position);
+        doDelete(position);
     }
 
     @Override
     public Resume get(String uuid) {
         LOG.info("Get " + uuid);
         P position = getExistPosition(uuid);
-        return performGet(position);
+        return doGet(position);
     }
 
     private P getExistPosition(String uuid) {
@@ -65,7 +65,7 @@ public abstract class AbstractStorage<P> implements Storage {
     @Override
     public List<Resume> getAllSorted() {
         LOG.info("GetAllSorted");
-        List<Resume> list = performSorted();
+        List<Resume> list = doCopyAll();
         Collections.sort(list);
         return list;
     }

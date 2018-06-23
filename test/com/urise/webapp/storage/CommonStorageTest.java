@@ -3,9 +3,15 @@ package com.urise.webapp.storage;
 import org.junit.runner.RunWith;
 import org.junit.runners.Suite;
 
-
-@Suite.SuiteClasses({ListStorageTest.class, MapStorageTest.class, MapStorageOtherTest.class, ArrayStorageTest.class, SortedArrayStorageTest.class})
 @RunWith(Suite.class)
+@Suite.SuiteClasses(
+        {
+                ListStorageTest.class,
+                MapStorageTest.class,
+                MapStorageOtherTest.class,
+                ArrayStorageTest.class,
+                SortedArrayStorageTest.class
+        })
 public class CommonStorageTest {
 /*
     public static void main(String[] args) {
