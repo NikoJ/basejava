@@ -5,6 +5,8 @@ import com.urise.webapp.model.Resume;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Objects;
 
@@ -54,7 +56,7 @@ public abstract class AbstractFileStorage extends AbstractStorage<File> {
     @Override
     protected void doDelete(File file) {
         if (!file.delete()) {
-            throw new StorageException("File delete error ", file.getName());
+            throw new StorageException("File delete error: ", file.getName());
         }
     }
 
@@ -63,13 +65,22 @@ public abstract class AbstractFileStorage extends AbstractStorage<File> {
         try {
             return doRead(file);
         } catch (IOException e) {
-            throw new StorageException("File get error ", file.getName(), e);
+            throw new StorageException("File get error: ", file.getName(), e);
         }
     }
 
     @Override
-    protected List<Resume> doCopyAll() { // I don't now how to do this method
-        return null;
+    protected List<Resume> doCopyAll() {
+        File[] files = directory.listFiles();
+        if (files == null) {
+            throw new StorageException("Directory doCopyAll error: ", null);
+        }
+        List<Resume> list = new ArrayList<>(files.length);
+        Arrays.stream(files).forEach(file -> list.add(doGet(file)));
+        for (File file : files) {
+            list.add(doGet(file));
+        }
+        return list;
     }
 
     @Override
@@ -84,7 +95,7 @@ public abstract class AbstractFileStorage extends AbstractStorage<File> {
             for (File file : files) {
                 doDelete(file);
             }
-        }
+        } else throw new StorageException("Directory clear error: ", null);
     }
 
     @Override

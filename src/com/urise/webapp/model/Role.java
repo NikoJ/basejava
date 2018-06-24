@@ -20,22 +20,18 @@ public class Role {
         this(DateUtil.of(yearStart, monthStart), DateUtil.of(yearEnd, monthEnd), name);
     }
 
+    public Role(LocalDate dateStart, LocalDate dateEnd, String name) {
+        this(dateStart, dateEnd, name, null);
+    }
+
     public Role(LocalDate dateStart, LocalDate dateEnd, String name, String description) {
         Objects.requireNonNull(dateStart, "DateStart must not be null");
+        Objects.requireNonNull(dateEnd, "DateEnd must not be null");
         Objects.requireNonNull(name, "Name must not be null");
         this.dateStart = dateStart;
         this.dateEnd = dateEnd;
         this.name = name;
         this.description = description;
-    }
-
-    public Role(LocalDate dateStart, LocalDate dateEnd, String name) {
-        Objects.requireNonNull(dateStart, "DateStart must not be null");
-        Objects.requireNonNull(name, "Name must not be null");
-        this.dateStart = dateStart;
-        this.dateEnd = dateEnd;
-        this.name = name;
-        this.description = null;
     }
 
     public String getDateStart() {

@@ -9,17 +9,16 @@ public class Company {
     private final Site title;
     private final List<Role> roles;
 
-    public Company(String title, String url, List<Role> roles) {
-        Objects.requireNonNull(title, "Title must not be null");
-        this.title = new Site(title, url);
-        this.roles = roles;
+    public Company(String title, String url, Role... roles) {
+        this(new Site(title, url), Arrays.asList(roles));
     }
 
-    public Company(String title, String url, Role... roles) {
+    public Company(Site title, List<Role> roles) {
         Objects.requireNonNull(title, "Title must not be null");
-        this.title = new Site(title, url);
-        this.roles = Arrays.asList(roles);
+        this.title = title;
+        this.roles =roles;
     }
+
 
     @Override
     public String toString() {
