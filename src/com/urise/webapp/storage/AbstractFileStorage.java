@@ -77,9 +77,9 @@ public abstract class AbstractFileStorage extends AbstractStorage<File> {
         }
         List<Resume> list = new ArrayList<>(files.length);
         Arrays.stream(files).forEach(file -> list.add(doGet(file)));
-        for (File file : files) {
+        /*for (File file : files) {
             list.add(doGet(file));
-        }
+        }*/
         return list;
     }
 
