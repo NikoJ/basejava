@@ -8,11 +8,13 @@ import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 
+import java.io.File;
 import java.time.Month;
 import java.util.Arrays;
 import java.util.List;
 
 public abstract class AbstractStorageTest {
+    protected static final File STORAGE_DIR = new File("D:\\Java\\projects\\basejava\\storage");
     private static final String UUID_1 = "uuid1";
     private static final String UUID_2 = "uuid2";
     private static final String UUID_3 = "uuid3";
@@ -34,10 +36,10 @@ public abstract class AbstractStorageTest {
         RESUME_1.addSections(SectionType.ACHIEVEMENT, new ListSection("A1", "A2", "A3"));
         RESUME_2.addSections(SectionType.QUALIFICATIONS, new ListSection("Q1", "Q2", "Q3"));
         RESUME_3.addSections(SectionType.EXPERIENCE, new CompanySection(new Company("Title", "URL",
-                new Role(2016, Month.JANUARY, 2018,Month.APRIL, "Инженер", "Работал в лаборатории"),
-                new Role(2015, Month.JANUARY, 2017,Month.APRIL, "Инженер", "Работал в лаборатории"))));
+                new Role(2016, Month.JANUARY, 2018, Month.APRIL, "Инженер", "Работал в лаборатории"),
+                new Role(2015, Month.JANUARY, 2017, Month.APRIL, "Инженер", "Работал в лаборатории"))));
         RESUME_1.addSections(SectionType.EDUCATION, new CompanySection(new Company("ЛЭТИ", "URL",
-                new Role(2016, Month.JANUARY, 2018,Month.APRIL, "Бакалавр"))));
+                new Role(2016, Month.JANUARY, 2018, Month.APRIL, "Бакалавр"))));
     }
 
     protected Storage storage;
@@ -80,7 +82,7 @@ public abstract class AbstractStorageTest {
     public void update() throws Exception {
         Resume testResume = new Resume(UUID_1, "5");
         storage.update(testResume);
-        Assert.assertTrue(testResume == storage.get(UUID_1));
+        Assert.assertTrue(testResume.equals(storage.get(UUID_1)));
     }
 
     @Test

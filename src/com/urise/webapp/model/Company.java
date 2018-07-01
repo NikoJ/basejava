@@ -1,10 +1,12 @@
 package com.urise.webapp.model;
 
+import java.io.Serializable;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Objects;
 
-public class Company {
+public class Company implements Serializable {
+    private static final long serialVersionUID = 1L;
 
     private final Site title;
     private final List<Role> roles;
@@ -16,7 +18,7 @@ public class Company {
     public Company(Site title, List<Role> roles) {
         Objects.requireNonNull(title, "Title must not be null");
         this.title = title;
-        this.roles =roles;
+        this.roles = roles;
     }
 
 

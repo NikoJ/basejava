@@ -1,10 +1,6 @@
 package com.urise.webapp;
 
 import java.io.File;
-import java.io.FileInputStream;
-import java.io.IOException;
-import java.util.Arrays;
-import java.util.Objects;
 
 public class MainFile {
     public static void main(String[] args) {
@@ -18,7 +14,7 @@ public class MainFile {
             throw new RuntimeException("Error: ", e);
         }*/
 
-        File dir = new File(".\\src\\com\\urise\\webapp");
+        File dir = new File(".\\src\\com\\urise");
         /*System.out.println(dir.isDirectory());
         Arrays.stream(Objects.requireNonNull(dir.list())).forEach(System.out::println);
 
@@ -28,19 +24,18 @@ public class MainFile {
             throw new RuntimeException(e);
         }*/
 
-        recursionHW8(dir);
+        recursionHW8(dir, "");
     }
 
-    public static void recursionHW8(File dir) {
+    public static void recursionHW8(File dir, String indent) {
         File[] file = dir.listFiles();
-
         if (file != null) {
             for (File f : file) {
                 if (f.isFile()) {
-                    System.out.println("\t" + f.getName());
+                    System.out.println(indent + f.getName());
                 } else if (f.isDirectory()) {
-                    System.out.println(f.getName());
-                    recursionHW8(f);
+                    System.out.println(indent + f.getName());
+                    recursionHW8(f, indent + "\t");
                 }
             }
         }

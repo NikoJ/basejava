@@ -3,6 +3,7 @@ package com.urise.webapp.model;
 import java.util.Objects;
 
 public class TextBoxSection extends Section {
+    private static final long serialVersionUID = 1L;
     private final String text;
 
     public TextBoxSection(String text) {

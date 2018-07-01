@@ -2,11 +2,14 @@ package com.urise.webapp.model;
 
 import com.urise.webapp.util.DateUtil;
 
+import java.io.Serializable;
 import java.time.LocalDate;
 import java.time.Month;
 import java.util.Objects;
 
-public class Role {
+public class Role implements Serializable {
+    private static final long serialVersionUID = 1L;
+
     private final LocalDate dateStart;
     private final LocalDate dateEnd;
     private final String name;
