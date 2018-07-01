@@ -25,4 +25,5 @@ public class TestSingleton {
     public enum Singleton {
         INSTANCE
     }
+    //test
 }
