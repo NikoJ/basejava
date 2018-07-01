@@ -11,7 +11,7 @@ public class ObjectSerializableStrategy implements SerializableStrategy {
         try (ObjectOutputStream oos = new ObjectOutputStream(os)) {
             oos.writeObject(resume);
         } catch (Exception e) {
-            e.printStackTrace();
+            throw new StorageException("Error write resume", null, e);
         }
     }
 

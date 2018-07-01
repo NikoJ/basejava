@@ -12,12 +12,13 @@ import java.nio.file.Paths;
 import java.util.List;
 import java.util.Objects;
 import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 public class PathStorage extends AbstractStorage<Path> {
     private Path directory;
-    private ObjectSerializableStrategy serializations;
+    private SerializableStrategy serializations;
 
-    protected PathStorage(String dir, ObjectSerializableStrategy serializations) {
+    protected PathStorage(String dir, SerializableStrategy serializations) {
         this.serializations = serializations;
         this.directory = Paths.get(dir);
         Objects.requireNonNull(directory, "directory must not be null");
@@ -28,7 +29,7 @@ public class PathStorage extends AbstractStorage<Path> {
 
     @Override
     protected boolean isExist(Path path) {
-        return Files.isReadable(path);
+        return Files.isRegularFile(path);
     }
 
     @Override
@@ -70,11 +71,7 @@ public class PathStorage extends AbstractStorage<Path> {
 
     @Override
     protected List<Resume> doCopyAll() {
-        try {
-            return Files.list(directory).map(this::doGet).collect(Collectors.toList());
-        } catch (Exception e) {
-            throw new StorageException("doCopyAll error", null, e);
-        }
+        return getStreamPath().map(this::doGet).collect(Collectors.toList());
     }
 
     @Override
@@ -84,19 +81,19 @@ public class PathStorage extends AbstractStorage<Path> {
 
     @Override
     public void clear() {
-        try {
-            Files.list(directory).forEach(this::doDelete);
-        } catch (IOException e) {
-            throw new StorageException("Path delete error", null, e);
-        }
+        getStreamPath().forEach(this::doDelete);
     }
 
     @Override
     public int size() {
+        return (int) getStreamPath().count();
+    }
+
+    private Stream<Path> getStreamPath() {
         try {
-            return (int) Files.list(directory).count();
+            return Files.list(directory);
         } catch (IOException e) {
-            throw new StorageException("Path size error", null, e);
+            throw new StorageException("Path error", null, e);
         }
     }
 }
