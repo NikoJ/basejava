@@ -11,6 +11,8 @@ import java.time.LocalDate;
 import java.time.Month;
 import java.util.Objects;
 
+import static com.urise.webapp.util.DateUtil.NOW;
+
 @XmlAccessorType(XmlAccessType.FIELD)
 public class Role implements Serializable {
     private static final long serialVersionUID = 1L;
@@ -24,6 +26,10 @@ public class Role implements Serializable {
 
     public Role(int yearStart, Month monthStart, int yearEnd, Month monthEnd, String name, String description) {
         this(DateUtil.of(yearStart, monthStart), DateUtil.of(yearEnd, monthEnd), name, description);
+    }
+
+    public Role(int yearStart, Month monthStart, String name, String description) {
+        this(DateUtil.of(yearStart, monthStart), NOW, name, description);
     }
 
     public Role(int yearStart, Month monthStart, int yearEnd, Month monthEnd, String name) {
@@ -41,18 +47,18 @@ public class Role implements Serializable {
         this.dateStart = dateStart;
         this.dateEnd = dateEnd;
         this.name = name;
-        this.description = description;
+        this.description = description != null ? description : "";
     }
 
     public Role() {
     }
 
-    public String getDateStart() {
-        return dateStart.toString();
+    public LocalDate getDateStart() {
+        return dateStart;
     }
 
-    public String getDateEnd() {
-        return dateEnd.toString();
+    public LocalDate getDateEnd() {
+        return dateEnd;
     }
 
     public String getName() {
