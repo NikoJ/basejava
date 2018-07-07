@@ -15,7 +15,7 @@ public class Site implements Serializable {
     public Site(String name, String url) {
         Objects.requireNonNull(name, "Name must not be null");
         this.name = name;
-        this.url = url;
+        this.url = url != null ? url : "";
     }
 
     public Site() {
