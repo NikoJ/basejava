@@ -11,26 +11,34 @@ import java.util.Objects;
 public class Company implements Serializable {
     private static final long serialVersionUID = 1L;
 
-    private Site title;
+    private Site sitePage;
     private List<Role> roles;
 
     public Company(String title, String url, Role... roles) {
         this(new Site(title, url), Arrays.asList(roles));
     }
 
-    public Company(Site title, List<Role> roles) {
-        Objects.requireNonNull(title, "Title must not be null");
-        this.title = title;
+    public Company(Site sitePage, List<Role> roles) {
+        Objects.requireNonNull(sitePage, "Title must not be null");
+        this.sitePage = sitePage;
         this.roles = roles;
     }
 
     public Company() {
     }
 
+    public Site getSitePage() {
+        return sitePage;
+    }
+
+    public List<Role> getRoles() {
+        return roles;
+    }
+
     @Override
     public String toString() {
         return "Company{" +
-                "title=" + title +
+                "title=" + sitePage +
                 ", roles=" + roles +
                 '}';
     }
@@ -42,13 +50,13 @@ public class Company implements Serializable {
 
         Company company = (Company) o;
 
-        if (!title.equals(company.title)) return false;
+        if (!sitePage.equals(company.sitePage)) return false;
         return roles.equals(company.roles);
     }
 
     @Override
     public int hashCode() {
-        int result = title.hashCode();
+        int result = sitePage.hashCode();
         result = 31 * result + roles.hashCode();
         return result;
     }
