@@ -1,5 +1,7 @@
 package com.urise.webapp.storage;
 
+import com.urise.webapp.storage.serializer.JsonSerializerStrategyTest;
+import com.urise.webapp.storage.serializer.XmlPathStorageTest;
 import org.junit.runner.RunWith;
 import org.junit.runners.Suite;
 
@@ -12,7 +14,9 @@ import org.junit.runners.Suite;
                 ArrayStorageTest.class,
                 SortedArrayStorageTest.class,
                 FileStorageTest.class,
-                PathStorageTest.class
+                PathStorageTest.class,
+                XmlPathStorageTest.class,
+                JsonSerializerStrategyTest.class
         })
 public class CommonStorageTest {
 /*

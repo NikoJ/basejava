@@ -1,11 +1,11 @@
-package com.urise.webapp.storage;
+package com.urise.webapp.storage.serializer;
 
 import com.urise.webapp.exception.StorageException;
 import com.urise.webapp.model.Resume;
 
 import java.io.*;
 
-public class ObjectSerializableStrategy implements SerializableStrategy {
+public class ObjectSerializerStrategy implements SerializerStrategy {
     @Override
     public void doWrite(Resume resume, OutputStream os) throws IOException {
         try (ObjectOutputStream oos = new ObjectOutputStream(os)) {

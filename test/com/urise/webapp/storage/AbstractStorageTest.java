@@ -44,7 +44,7 @@ public abstract class AbstractStorageTest {
 
     protected Storage storage;
 
-    AbstractStorageTest(Storage storage) {
+    protected AbstractStorageTest(Storage storage) {
         this.storage = storage;
     }
 

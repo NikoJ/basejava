@@ -6,7 +6,7 @@ import java.util.List;
 public class CompanySection extends Section {
     private static final long serialVersionUID = 1L;
 
-    private final List<Company> companies;
+    private List<Company> companies;
 
     public CompanySection(List<Company> companies) {
         this.companies = companies;
@@ -14,6 +14,9 @@ public class CompanySection extends Section {
 
     public CompanySection(Company... companies) {
         this.companies = Arrays.asList(companies);
+    }
+
+    public CompanySection() {
     }
 
     public List<Company> getCompanies() {

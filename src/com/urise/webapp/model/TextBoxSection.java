@@ -4,11 +4,14 @@ import java.util.Objects;
 
 public class TextBoxSection extends Section {
     private static final long serialVersionUID = 1L;
-    private final String text;
+    private String text;
 
     public TextBoxSection(String text) {
         Objects.requireNonNull(text, "Text must not be null");
         this.text = text;
+    }
+
+    public TextBoxSection() {
     }
 
     public String getText() {

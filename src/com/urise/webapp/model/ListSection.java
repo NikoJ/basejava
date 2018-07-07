@@ -6,7 +6,7 @@ import java.util.List;
 public class ListSection extends Section {
     private static final long serialVersionUID = 1L;
 
-    private final List<String> list;
+    private List<String> list;
 
     public ListSection(List<String> list) {
         this.list = list;
@@ -14,6 +14,9 @@ public class ListSection extends Section {
 
     public ListSection(String... list) {
         this.list = Arrays.asList(list);
+    }
+
+    public ListSection() {
     }
 
     public List<String> getList() {
