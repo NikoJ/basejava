@@ -5,6 +5,7 @@ import com.urise.webapp.model.*;
 import java.io.*;
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 import java.util.Map;
 
@@ -15,15 +16,13 @@ public class DataSerializerStrategy implements SerializerStrategy {
             dos.writeUTF(resume.getUuid());
             dos.writeUTF(resume.getFullName());
             Map<ContactType, String> contacts = resume.getContacts();
-            dos.writeInt(contacts.size());
-            for (Map.Entry<ContactType, String> entry : resume.getContacts().entrySet()) {
+            writeObject(dos, contacts.entrySet(), entry -> {
                 dos.writeUTF(entry.getKey().name());
                 dos.writeUTF(entry.getValue());
-            }
+            });
 
             Map<SectionType, Section> sections = resume.getSections();
-            dos.writeInt(sections.size());
-            for (Map.Entry<SectionType, Section> entry : resume.getSections().entrySet()) {
+            writeObject(dos, sections.entrySet(), entry -> {
                 SectionType sectionType = entry.getKey();
                 Section section = entry.getValue();
                 dos.writeUTF(sectionType.name());
@@ -34,32 +33,23 @@ public class DataSerializerStrategy implements SerializerStrategy {
                         break;
                     case ACHIEVEMENT:
                     case QUALIFICATIONS:
-                        List<String> listSectionList = (((ListSection) section).getList());
-                        dos.writeInt(listSectionList.size());
-                        for (String listSection : listSectionList) {
-                            dos.writeUTF(listSection);
-                        }
+                        writeObject(dos, ((ListSection) section).getList(), dos::writeUTF);
                         break;
                     case EXPERIENCE:
                     case EDUCATION:
-                        List<Company> companyList = (((CompanySection) section).getCompanies());
-                        dos.writeInt(companyList.size());
-                        for (Company company : companyList) {
+                        writeObject(dos, ((CompanySection) section).getCompanies(), company -> {
                             dos.writeUTF(company.getSitePage().getName());
                             dos.writeUTF(company.getSitePage().getUrl());
-
-                            List<Role> rolesList = company.getRoles();
-                            dos.writeInt(rolesList.size());
-                            for (Role role : rolesList) {
+                            writeObject(dos, company.getRoles(), role -> {
                                 writeLocalDate(dos, role.getDateStart());
                                 writeLocalDate(dos, role.getDateEnd());
-                                dos.writeUTF(role.getDescription());
                                 dos.writeUTF(role.getName());
-                            }
-                        }
+                                dos.writeUTF(role.getDescription());
+                            });
+                        });
                         break;
                 }
-            }
+            });
         }
     }
 
@@ -69,18 +59,15 @@ public class DataSerializerStrategy implements SerializerStrategy {
             String uuid = dis.readUTF();
             String fullName = dis.readUTF();
             Resume resume = new Resume(uuid, fullName);
-            int size = dis.readInt();
-            for (int i = 0; i < size; i++) {
+            readObject(dis, () -> {
                 ContactType contactType = ContactType.valueOf(dis.readUTF());
                 String val = dis.readUTF();
                 resume.addContacts(contactType, val);
-            }
-
-            size = dis.readInt();
-            for (int i = 0; i < size; i++) {
+            });
+            readObject(dis, () -> {
                 SectionType sectionType = SectionType.valueOf(dis.readUTF());
                 resume.addSections(sectionType, getSectionForRead(dis, sectionType));
-            }
+            });
             return resume;
         }
     }
@@ -101,27 +88,57 @@ public class DataSerializerStrategy implements SerializerStrategy {
                 return new TextBoxSection(dis.readUTF());
             case ACHIEVEMENT:
             case QUALIFICATIONS:
-                int size = dis.readInt();
-                List<String> listSectionList = new ArrayList<>();
-                for (int i = 0; i < size; i++) {
-                    listSectionList.add(dis.readUTF());
-                }
-                return new ListSection(listSectionList);
+                return new ListSection(readList(dis, dis::readUTF));
             case EXPERIENCE:
             case EDUCATION:
-                size = dis.readInt();
-                List<Company> companyList = new ArrayList<>(size);
-                for (int i = 0; i < size; i++) {
-                    int length = dis.readInt();
-                    List<Role> roleList = new ArrayList<>(length);
-                    for (int j = 0; j < length; j++) {
-                        roleList.add(new Role(readLocalDate(dis), readLocalDate(dis), dis.readUTF(), dis.readUTF()));
-                    }
-                    companyList.add(new Company(new Site(dis.readUTF(), dis.readUTF()), roleList));
-                }
-                return new CompanySection(companyList);
+                return new CompanySection(
+                        readList(dis, () -> new Company(
+                                new Site(dis.readUTF(), dis.readUTF()),
+                                readList(dis, () -> new Role(
+                                        readLocalDate(dis), readLocalDate(dis), dis.readUTF(), dis.readUTF()
+                                ))
+                        ))
+                );
             default:
                 throw new IllegalStateException();
         }
+    }
+
+    private <T> void writeObject(DataOutputStream dos, Collection<T> collection, FunctionWriter<T> writer) throws IOException {
+        dos.writeInt(collection.size());
+        for (T t : collection) {
+            writer.write(t);
+        }
+    }
+
+    private void readObject(DataInputStream dis, FunctionReader reader) throws IOException {
+        int size = dis.readInt();
+        for (int i = 0; i < size; i++) {
+            reader.read();
+        }
+    }
+
+    private <T> List<T> readList(DataInputStream dis, FunctionReaderList<T> reader) throws IOException {
+        int size = dis.readInt();
+        List<T> list = new ArrayList<>(size);
+        for (int i = 0; i < size; i++) {
+            list.add(reader.readList());
+        }
+        return list;
+    }
+
+    @FunctionalInterface
+    private interface FunctionWriter<T> {
+        void write(T t) throws IOException;
+    }
+
+    @FunctionalInterface
+    private interface FunctionReader {
+        void read() throws IOException;
+    }
+
+    @FunctionalInterface
+    private interface FunctionReaderList<T> {
+        T readList() throws IOException;
     }
 }
