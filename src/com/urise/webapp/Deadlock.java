@@ -7,17 +7,28 @@ public class Deadlock {
         final Friend John = new Friend("John", 1000);
         final Friend Mars = new Friend("Mars", 1000);
 
-        for (int i = 0; i < 100; i++) {
-            new Thread(() -> transferMoney(John, Mars, 100)).start();
-            new Thread(() -> transferMoney(Mars, John, 100)).start();
-        }
+            new Thread(() -> {
+                try {
+                    transferMoney(John, Mars, 100);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+            }).start();
+            new Thread(() -> {
+                try {
+                    transferMoney(Mars, John, 100);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+            }).start();
     }
 
-    public static void transferMoney(Friend fromFriend, Friend toFriend, int amount) throws RuntimeException {
+    public static void transferMoney(Friend fromFriend, Friend toFriend, int amount) throws RuntimeException, InterruptedException {
 //        UUID fromUuid = fromFriend.getUuid();
 //        UUID toUuid = toFriend.getUuid();
 //        if (fromUuid.compareTo(toUuid) < 0) {
             synchronized (fromFriend) {
+                Thread.sleep(10);
                 synchronized (toFriend) {
                     doTransfer(fromFriend, toFriend, amount);
                 }
