@@ -1,16 +1,18 @@
 package com.urise.webapp;
 
-import com.urise.webapp.util.LazySingleton;
-
-import java.util.ArrayList;
-import java.util.List;
+import java.util.concurrent.*;
+import java.util.concurrent.atomic.AtomicInteger;
+import java.util.concurrent.locks.Lock;
+import java.util.concurrent.locks.ReentrantLock;
 
 public class MainConcurrency {
-    public static final Object LOCK = new Object();
+    //    public static final Object LOCK = new Object();
     public static final int THREADS_NUMBER = 10000;
+    public static final Lock lock = new ReentrantLock();
     public static volatile int count;
+    private final AtomicInteger atomicInteger = new AtomicInteger();
 
-    public static void main(String[] args) throws InterruptedException {
+    public static void main(String[] args) throws InterruptedException, ExecutionException {
         System.out.println("______________________Main_thread______________________");
         System.out.println("Name: " + Thread.currentThread().getName());
         System.out.println("Id: " + Thread.currentThread().getId());
@@ -25,34 +27,56 @@ public class MainConcurrency {
         }).start();
 
         final MainConcurrency mainConcurrency = new MainConcurrency();
-        List<Thread> threads = new ArrayList<>(THREADS_NUMBER);
-        for (int i = 0; i < THREADS_NUMBER; i++) {
-            Thread thread = new Thread(() -> {
+        CountDownLatch latch = new CountDownLatch(THREADS_NUMBER);
+        ExecutorService executorService = Executors.newCachedThreadPool();
 
+//        List<Thread> threads = new ArrayList<>(THREADS_NUMBER);
+        for (int i = 0; i < THREADS_NUMBER; i++) {
+            Future<Integer> future = executorService.submit(() -> {
                 for (int j = 0; j < 100; j++) {
                     mainConcurrency.inc();
-                    System.out.println(LazySingleton.getInstance());
                 }
+                latch.countDown();
+                return 5;
+            });
+//            System.out.println(future.isDone());
+//            System.out.println(future.get());
+/*            Thread thread = new Thread(() -> {
+                for (int j = 0; j < 100; j++) {
+                    mainConcurrency.inc();
+                }
+                latch.countDown();
             });
             thread.start();
-            threads.add(thread);
+ */
+//            threads.add(thread);
 //            thread.join();
         }
-        Thread.sleep(1000);
-        threads.forEach((t) -> {
+
+ /*       threads.forEach((t) -> {
             try {
                 t.join();
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }
         });
+ */
+        latch.await();
+        executorService.shutdown();
         System.out.println(count);
+        System.out.println(mainConcurrency.atomicInteger.get());
     }
 
-    private synchronized void inc() {
+    private void inc() {
 //        double a = Math.sin(13.);
 //        synchronized (this) {
-        count++;
+//        lock.lock();
+//        try {
+        atomicInteger.incrementAndGet();
+//            count++;
+//        } finally {
+//            lock.unlock();
+//        }
 //        }
     }
 }
