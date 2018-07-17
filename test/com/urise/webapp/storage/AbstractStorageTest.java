@@ -13,13 +13,14 @@ import java.io.File;
 import java.time.Month;
 import java.util.Arrays;
 import java.util.List;
+import java.util.UUID;
 
 public abstract class AbstractStorageTest {
     protected static final File STORAGE_DIR = Config.get().getStorageDir();
-    private static final String UUID_1 = "uuid1";
-    private static final String UUID_2 = "uuid2";
-    private static final String UUID_3 = "uuid3";
-    private static final String UUID_4 = "uuid4";
+    private static final String UUID_1 = UUID.randomUUID().toString();
+    private static final String UUID_2 = UUID.randomUUID().toString();;
+    private static final String UUID_3 = UUID.randomUUID().toString();;
+    private static final String UUID_4 = UUID.randomUUID().toString();;
 
     private static final Resume RESUME_1;
     private static final Resume RESUME_2;
@@ -31,6 +32,7 @@ public abstract class AbstractStorageTest {
         RESUME_2 = new Resume(UUID_2, "C");
         RESUME_3 = new Resume(UUID_3, "B");
         RESUME_4 = new Resume(UUID_4, "D");
+/*
         RESUME_1.addContacts(ContactType.PHONE, "+999999999");
         RESUME_1.addSections(SectionType.ACHIEVEMENT, new ListSection("A1", "A2", "A3"));
         RESUME_1.addSections(SectionType.EDUCATION, new CompanySection(new Company("ЛЭТИ", "URL",
@@ -44,7 +46,7 @@ public abstract class AbstractStorageTest {
         RESUME_3.addSections(SectionType.EXPERIENCE, new CompanySection(new Company("Title", "URL",
                 new Role(2016, Month.JANUARY, 2018, Month.APRIL, "Инженер", "Работал в лаборатории"),
                 new Role(2015, Month.JANUARY, 2017, Month.APRIL, "Инженер", "Работал в лаборатории"))));
-
+*/
     }
 
     protected Storage storage;

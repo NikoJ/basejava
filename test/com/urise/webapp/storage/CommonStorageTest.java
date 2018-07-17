@@ -18,7 +18,8 @@ import org.junit.runners.Suite;
                 PathStorageTest.class,
                 XmlPathStorageTest.class,
                 JsonSerializerStrategyTest.class,
-                DataSerializerStrategyTest.class
+                DataSerializerStrategyTest.class,
+                SqlStorageTest.class
         })
 public class CommonStorageTest {
 /*

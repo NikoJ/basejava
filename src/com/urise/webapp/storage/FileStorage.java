@@ -71,7 +71,7 @@ public class FileStorage extends AbstractStorage<File> {
     protected List<Resume> doCopyAll() {
         File[] files = directory.listFiles();
         if (files == null) {
-            throw new StorageException("Directory doCopyAll error: ", null);
+            throw new StorageException("Directory doCopyAll error: ");
         }
         List<Resume> list = new ArrayList<>(files.length);
         Arrays.stream(files).forEach(file -> list.add(doGet(file)));
@@ -93,14 +93,14 @@ public class FileStorage extends AbstractStorage<File> {
             for (File file : files) {
                 doDelete(file);
             }
-        } else throw new StorageException("Directory clear error: ", null);
+        } else throw new StorageException("Directory clear error: ");
     }
 
     @Override
     public int size() {
         String[] files = directory.list();
         if (files == null) {
-            throw new StorageException("Directory size error: ", null);
+            throw new StorageException("Directory size error: ");
         }
         return files.length;
     }
