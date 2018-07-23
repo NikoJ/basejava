@@ -1,16 +1,16 @@
 package com.urise.webapp.storage;
 
 import com.urise.webapp.Config;
-import com.urise.webapp.exception.ExistStorageException;
 import com.urise.webapp.exception.NotExistStorageException;
-import com.urise.webapp.model.*;
+import com.urise.webapp.exception.StorageException;
+import com.urise.webapp.model.ContactType;
+import com.urise.webapp.model.Resume;
 import org.junit.After;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 
 import java.io.File;
-import java.time.Month;
 import java.util.Arrays;
 import java.util.List;
 import java.util.UUID;
@@ -18,9 +18,9 @@ import java.util.UUID;
 public abstract class AbstractStorageTest {
     protected static final File STORAGE_DIR = Config.get().getStorageDir();
     private static final String UUID_1 = UUID.randomUUID().toString();
-    private static final String UUID_2 = UUID.randomUUID().toString();;
-    private static final String UUID_3 = UUID.randomUUID().toString();;
-    private static final String UUID_4 = UUID.randomUUID().toString();;
+    private static final String UUID_2 = UUID.randomUUID().toString();
+    private static final String UUID_3 = UUID.randomUUID().toString();
+    private static final String UUID_4 = UUID.randomUUID().toString();
 
     private static final Resume RESUME_1;
     private static final Resume RESUME_2;
@@ -32,9 +32,12 @@ public abstract class AbstractStorageTest {
         RESUME_2 = new Resume(UUID_2, "C");
         RESUME_3 = new Resume(UUID_3, "B");
         RESUME_4 = new Resume(UUID_4, "D");
-/*
+
         RESUME_1.addContacts(ContactType.PHONE, "+999999999");
-        RESUME_1.addSections(SectionType.ACHIEVEMENT, new ListSection("A1", "A2", "A3"));
+        RESUME_2.addContacts(ContactType.HEADHUNTER, "headhunter");
+        RESUME_3.addContacts(ContactType.GITHUB, "+github");
+        RESUME_4.addContacts(ContactType.EMAIL, "+email");
+/*      RESUME_1.addSections(SectionType.ACHIEVEMENT, new ListSection("A1", "A2", "A3"));
         RESUME_1.addSections(SectionType.EDUCATION, new CompanySection(new Company("ЛЭТИ", "URL",
                 new Role(2016, Month.JANUARY, 2018, Month.APRIL, "Бакалавр"))));
 
@@ -80,7 +83,7 @@ public abstract class AbstractStorageTest {
         Assert.assertEquals(RESUME_4, storage.get(UUID_4));
     }
 
-    @Test(expected = ExistStorageException.class)
+    @Test(expected = StorageException.class)
     public void saveExist() throws Exception {
         storage.save(RESUME_3);
     }
