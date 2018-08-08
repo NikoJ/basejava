@@ -50,7 +50,7 @@ public class Resume implements Comparable<Resume>, Serializable {
         return sections;
     }
 
-    public String getContacts(ContactType contactType) {
+    public String getContact(ContactType contactType) {
         return contacts.get(contactType);
     }
 
