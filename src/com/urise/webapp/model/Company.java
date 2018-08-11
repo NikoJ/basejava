@@ -9,8 +9,8 @@ import java.util.Objects;
 
 @XmlAccessorType(XmlAccessType.FIELD)
 public class Company implements Serializable {
+    public static final Company EMPTY = new Company("", "", Role.EMPTY);
     private static final long serialVersionUID = 1L;
-
     private Site sitePage;
     private List<Role> roles;
 

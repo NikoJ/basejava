@@ -15,8 +15,8 @@ import static com.urise.webapp.util.DateUtil.NOW;
 
 @XmlAccessorType(XmlAccessType.FIELD)
 public class Role implements Serializable {
+    public static final Role EMPTY = new Role();
     private static final long serialVersionUID = 1L;
-
     @XmlJavaTypeAdapter(LocalDateAdapter.class)
     private LocalDate dateStart;
     @XmlJavaTypeAdapter(LocalDateAdapter.class)

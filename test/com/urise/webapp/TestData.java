@@ -21,19 +21,25 @@ public class TestData {
         RESUME_2 = new Resume(UUID_2, "C");
         RESUME_3 = new Resume(UUID_3, "B");
         RESUME_4 = new Resume(UUID_4, "D");
+        RESUME_4.addContacts(ContactType.EMAIL, "+email");
 
         RESUME_1.addContacts(ContactType.PHONE, "+999999999");
-        RESUME_2.addContacts(ContactType.HEADHUNTER, "headhunter");
-        RESUME_3.addContacts(ContactType.GITHUB, "+github");
-        RESUME_4.addContacts(ContactType.EMAIL, "+email");
+        RESUME_1.addSections(SectionType.PERSONAL, new TextBoxSection("Умный"));
+        RESUME_1.addSections(SectionType.OBJECTIVE, new TextBoxSection("Position"));
         RESUME_1.addSections(SectionType.ACHIEVEMENT, new ListSection("A1", "A2", "A3"));
-        RESUME_1.addSections(SectionType.EDUCATION, new CompanySection(new Company("ЛЭТИ", "URL",
+        RESUME_1.addSections(SectionType.QUALIFICATIONS, new ListSection("Q1", "Q2", "Q3"));
+        RESUME_1.addSections(SectionType.EXPERIENCE, new CompanySection(new Company("JagerCompany", "www.google.com",
+                new Role(2016, Month.JANUARY, 2018, Month.APRIL, "Инженер", "Работал в лаборатории"),
+                new Role(2015, Month.JANUARY, 2017, Month.APRIL, "Инженер", "Работал в лаборатории"))));
+        RESUME_1.addSections(SectionType.EDUCATION, new CompanySection(new Company("ЛЭТИ", "www.google.com",
                 new Role(2016, Month.JANUARY, 2018, Month.APRIL, "Бакалавр"))));
 
+        RESUME_2.addContacts(ContactType.HEADHUNTER, "headhunter");
         RESUME_2.addSections(SectionType.PERSONAL, new TextBoxSection("PERSONAL"));
         RESUME_2.addSections(SectionType.OBJECTIVE, new TextBoxSection("OBJECTIVE"));
         RESUME_2.addSections(SectionType.QUALIFICATIONS, new ListSection("Q1", "Q2", "Q3"));
 
+        RESUME_3.addContacts(ContactType.GITHUB, "+github");
         RESUME_3.addSections(SectionType.PERSONAL, new TextBoxSection("PERSONAL"));
         RESUME_3.addSections(SectionType.EXPERIENCE, new CompanySection(new Company("Title", "URL",
                 new Role(2016, Month.JANUARY, 2018, Month.APRIL, "Инженер", "Работал в лаборатории"),

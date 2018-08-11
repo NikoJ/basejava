@@ -4,15 +4,22 @@ import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlRootElement;
 import java.io.Serializable;
-import java.util.EnumMap;
-import java.util.Map;
-import java.util.Objects;
-import java.util.UUID;
+import java.util.*;
 
 @XmlRootElement
 @XmlAccessorType(XmlAccessType.FIELD)
 public class Resume implements Comparable<Resume>, Serializable {
     private static final long serialVersionUID = 1L;
+
+    public static final Resume EMPTY = new Resume();
+    static {
+        EMPTY.addSections(SectionType.OBJECTIVE,TextBoxSection.EMPTY);
+        EMPTY.addSections(SectionType.PERSONAL,TextBoxSection.EMPTY);
+        EMPTY.addSections(SectionType.ACHIEVEMENT,ListSection.EMPTY);
+        EMPTY.addSections(SectionType.QUALIFICATIONS,ListSection.EMPTY);
+        EMPTY.addSections(SectionType.EXPERIENCE,new CompanySection(Company.EMPTY));
+        EMPTY.addSections(SectionType.EDUCATION,new CompanySection(Company.EMPTY));
+    }
 
     //Unique identifier
     private String uuid;

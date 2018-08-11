@@ -10,11 +10,11 @@
 <body>
 <jsp:include page="fragments/header.jsp"/>
 <section>
-    <div class="col-1">
+    <a href="resume?action=add"><img src="img/add.png"></a>
         <table class="table table-dark">
             <tr>
                 <th>Name</th>
-                <th>Mobile</th>
+                <th>eMail</th>
                 <th></th>
                 <th></th>
             </tr>
@@ -28,7 +28,6 @@
                 </tr>
             </c:forEach>
         </table>
-    </div>
 </section>
 <jsp:include page="fragments/footer.jsp"/>
 </body>

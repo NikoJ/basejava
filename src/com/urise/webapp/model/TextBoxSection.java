@@ -4,6 +4,7 @@ import java.util.Objects;
 
 public class TextBoxSection extends Section {
     private static final long serialVersionUID = 1L;
+    public static final TextBoxSection EMPTY = new TextBoxSection("");
     private String text;
 
     public TextBoxSection(String text) {

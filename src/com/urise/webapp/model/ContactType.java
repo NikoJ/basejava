@@ -5,13 +5,13 @@ public enum ContactType {
     SKYPE("Skype") {
         @Override
         public String toHtmlNotNull(String value) {
-            return "<a href='skype:" + value + "'>" + value + "</a>";
+            return getTitle() + ": " + "<a href='skype:" + value + "'>" + value + "</a>";
         }
     },
     EMAIL("Почта") {
         @Override
         public String toHtmlNotNull(String value) {
-            return "<a href='email:" + value + "'>" + value + "</a>";
+            return getTitle() + ": " + "<a href='email:" + value + "'>" + value + "</a>";
         }
     },
     GITHUB("Профиль на GitHub"),
