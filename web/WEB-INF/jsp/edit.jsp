@@ -230,9 +230,10 @@
             <br>
             <div class="content" style="text-align: center">
                 <button class="btn btn-primary btn-lg" type="submit">Сохранить</button>
-                <button class="btn btn-danger btn-lg" onclick="window.history.back()">Отменить</button>
+                <button class="btn btn-danger btn-lg" type="button" onclick="window.history.back()">Отменить</button>
             </div>
         </form>
+
     </div>
 </main>
 <jsp:include page="fragments/footer.jsp"/>
