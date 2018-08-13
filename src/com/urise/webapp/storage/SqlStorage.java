@@ -98,13 +98,13 @@ public class SqlStorage implements Storage {
 
     @Override
     public void delete(String uuid) {
-        sqlHelper.doQuery("DELETE FROM resume WHERE uuid = ?", (preparedStatement -> {
+        sqlHelper.doQuery("DELETE FROM resume WHERE uuid = ?", (preparedStatement) -> {
             preparedStatement.setString(1, uuid);
             if (preparedStatement.executeUpdate() == 0) {
                 throw new NotExistStorageException(uuid);
             }
             return null;
-        }));
+        });
     }
 
     @Override

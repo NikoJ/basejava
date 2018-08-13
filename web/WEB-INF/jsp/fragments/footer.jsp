@@ -1,4 +1,8 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <footer>
-    Школа <a href="http://u-rise.com/" target="_blank">U-Rise</a>. Курс JavaSE+Web
+    <nav class="navbar navbar-expand-md navbar-dark bg-dark fixed-bottom">
+        <div class="navbar-brand"> Онлайн-курсы от <a href="https://javaops.ru/" target="_blank">JavaOps</a>. Курс
+            Basejava
+        </div>
+    </nav>
 </footer>

@@ -14,7 +14,7 @@ public class SqlHelper {
     }
 
     public void doQuery(String statement) {
-        doQuery(statement, PreparedStatement::execute);
+        doQuery(statement, preparedStatement -> preparedStatement.execute());
     }
 
     public <T> T doQuery(String statement, FunctionExecute<T> functionExecute) {

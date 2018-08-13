@@ -1,0 +1,42 @@
+.main-container {
+    padding: 6rem 3rem;
+    text-align: center;
+}
+
+.resume-container {
+    padding: 6rem 3rem;
+    text-align: left;
+}
+
+.list-rectangle {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+
+.list-rectangle > li {
+    position: relative;
+    display: block;
+    margin-bottom: .25rem;
+    padding: .325rem .825rem .325rem 1.325rem;
+    color: #343a40;
+}
+
+.list-rectangle > li:last-child {
+    margin-bottom: 0;
+}
+
+.list-rectangle > li::before {
+    content: "";
+    position: absolute;
+    left: 0;
+    top: 0;
+    bottom: 0;
+    width: 0.5rem;
+    background: #515a63;
+}
+
+.td-time {
+    vertical-align: top;
+    padding: 0 10 0 0;
+}
